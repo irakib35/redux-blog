@@ -8,11 +8,14 @@ const initialState = {
     errmsg: "",
 };
 
-export const fetchBlogs = createAsyncThunk("blogs/fetchblogs", async () => {
-    const response = await getBlogs();
+export const fetchBlogs = createAsyncThunk(
+    "blogs/fetchblogs",
+    async ({ sort, filter }) => {
+        const response = await getBlogs(sort, filter);
 
-    return response;
-});
+        return response;
+    }
+);
 
 const blogsSlice = createSlice({
     name: "blogs",

@@ -8,10 +8,11 @@ export default function Postlist() {
     const { isLoading, isError, blogs, errmsg } = useSelector(
         (state) => state.blogs
     );
+    const { sort, filter } = useSelector((state) => state.filterPost);
 
     useEffect(() => {
-        dispatch(fetchBlogs());
-    }, [dispatch]);
+        dispatch(fetchBlogs({ sort, filter }));
+    }, [dispatch, sort, filter]);
 
     let content;
 

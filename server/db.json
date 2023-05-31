@@ -10,8 +10,8 @@
         "nodejs",
         "react"
       ],
-      "likes": null,
-      "isSaved": false,
+      "likes": 32,
+      "isSaved": true,
       "createdAt": "2020-07-15"
     },
     {
@@ -24,8 +24,8 @@
         "nodejs",
         "react"
       ],
-      "likes": null,
-      "isSaved": false,
+      "likes": 6,
+      "isSaved": true,
       "createdAt": "2022-07-15"
     },
     {
@@ -37,7 +37,7 @@
         "html",
         "programming"
       ],
-      "likes": 20,
+      "likes": 36,
       "isSaved": true,
       "createdAt": "2021-07-15"
     },
@@ -53,7 +53,7 @@
         "programming"
       ],
       "likes": 24,
-      "isSaved": false,
+      "isSaved": true,
       "createdAt": "2023-01-25"
     },
     {
@@ -109,8 +109,8 @@
         "nodejs",
         "javascript"
       ],
-      "likes": 24,
-      "isSaved": false,
+      "likes": 25,
+      "isSaved": true,
       "createdAt": "2022-11-13"
     }
   ]

@@ -6,7 +6,7 @@ export default function PostItem({ blog }) {
 
     return (
         <div className="lws-card">
-            <Link to={`/post/${id}`}>
+            <Link to={`/posts/${id}`}>
                 <img src={image} className="lws-card-image" alt="" />
             </Link>
             <div className="p-4">
@@ -17,11 +17,10 @@ export default function PostItem({ blog }) {
                         {likes}
                     </p>
                 </div>
-                <Link to={`/post/${id}`} className="lws-postTitle">
+                <Link to={`/posts/${id}`} className="lws-postTitle">
                     {title}
                 </Link>
                 <div className="lws-tags">
-                    {/* <span>#python,</span> <span>#tech,</span> <span>#git</span> */}
                     {tags.map((tag) => (
                         <span>#{tag},</span>
                     ))}

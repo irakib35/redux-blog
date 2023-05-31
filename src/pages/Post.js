@@ -4,30 +4,32 @@ import RelatedPostList from "../components/relatedPost/RelatedPostList";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchPost } from "../features/post/postSlice";
-import { fetchLikes, updateInitials } from "../features/likes/likeSlice";
+import { fetchLikes, loadLikes } from "../features/likes/likeSlice";
+import { fetchSaved, loadSaved } from "../features/saved/savedSlice";
 
 export default function Post() {
     const dispatch = useDispatch();
     const { postId } = useParams();
     const { post } = useSelector((state) => state.post);
     const { id, title, description, image, tags, likes, isSaved } = post || {};
-
-    const { nplikes } = useSelector((state) => {
-        return state.plikes;
-    });
+    const { nplikes } = useSelector((state) => state.plikes);
+    const { npsaved } = useSelector((state) => state.psaved);
 
     useEffect(() => {
         dispatch(fetchPost(postId));
     }, [dispatch, postId]);
 
     useEffect(() => {
-        console.log(likes);
         if (likes) {
-            dispatch(updateInitials(likes));
+            dispatch(loadLikes(likes));
         }
     }, [dispatch, likes]);
 
-    let saves = isSaved ? "active" : "";
+    useEffect(() => {
+        dispatch(loadSaved(isSaved));
+    }, [dispatch, isSaved]);
+
+    let saves = npsaved ? "active" : "";
     let posttags;
     if (tags?.length > 0) {
         posttags = tags.map((tag) => (
@@ -38,7 +40,10 @@ export default function Post() {
     const likesHandler = () => {
         dispatch(fetchLikes({ id, nplikes }));
     };
-    //console.log(nplikes);
+
+    const savedHandler = () => {
+        dispatch(fetchSaved({ id, npsaved }));
+    };
     return (
         <>
             <GoHome />
@@ -73,10 +78,11 @@ export default function Post() {
 
                             <button
                                 className={`${saves} save-btn`}
+                                onClick={savedHandler}
                                 id="lws-singleSavedBtn"
                             >
                                 <i className="fa-regular fa-bookmark"></i>
-                                {isSaved ? " Saved" : " Save"}
+                                {npsaved ? " Saved" : " Save"}
                             </button>
                         </div>
                         <div className="mt-6">
@@ -85,7 +91,7 @@ export default function Post() {
                     </div>
                 </main>
 
-                <RelatedPostList />
+                <RelatedPostList currentId={id} tags={tags} />
             </section>
         </>
     );

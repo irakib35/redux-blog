@@ -2,15 +2,13 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import updateLikes from "./likeAPI";
 
 const initialState = {
-    isLoading: false,
     nplikes: 0,
-    iserror: false,
 };
 
 export const fetchLikes = createAsyncThunk(
     "likes/update",
-    async ({ id, likes }) => {
-        const response = await updateLikes(id, likes);
+    async ({ id, nplikes }) => {
+        const response = await updateLikes(id, nplikes);
         return response.likes;
     }
 );
@@ -19,8 +17,7 @@ const likeSlice = createSlice({
     name: "likes",
     initialState,
     reducers: {
-        updateInitials: (state, action) => {
-            console.log(action.payload);
+        loadLikes: (state, action) => {
             state.nplikes = action.payload;
         },
     },
@@ -33,7 +30,6 @@ const likeSlice = createSlice({
             .addCase(fetchLikes.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.nplikes = action.payload;
-                //console.log({ action });
             })
             .addCase(fetchLikes.rejected, (state, action) => {
                 state.isLoading = false;
@@ -43,5 +39,5 @@ const likeSlice = createSlice({
     },
 });
 
-export const { updateInitials } = likeSlice.actions;
+export const { loadLikes } = likeSlice.actions;
 export default likeSlice.reducer;
